@@ -7,6 +7,9 @@ module Utils =
     let lines (input: string) : string [] =
         input.Split([| "\r\n"; "\n"; "\r" |], StringSplitOptions.RemoveEmptyEntries)
 
+    let splitAtDoubleLines (input: string) : string [] =
+        input.Split([| "\r\n\r\n"; "\n\n"; "\r\r" |], StringSplitOptions.RemoveEmptyEntries)
+
     let stringTrim (string: string) : string = string.Trim()
 
     let words (input: string) : string [] =
