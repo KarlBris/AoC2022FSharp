@@ -31,11 +31,6 @@ module Utils =
 
     let eMod64 (a: int64) (b: int64) : int64 = ((a % b) + b) % b
 
-    let programToString (program: int list) : string =
-        program
-        |> List.map string
-        |> List.reduce (fun a b -> $"{a},{b}")
-
     // From http://www.fssnip.net/4u/title/Very-Fast-Permutations
     let rec permutations = function
     | []      -> seq [List.empty]

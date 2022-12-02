@@ -63,3 +63,14 @@ module TestRunner =
     let examples1_2 = [|"1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000"|]
 
     let exampleResults1_2 = [|"45000"|]
+
+    // Day2
+    let input2 = getInput 2
+
+    let examples2_1 = [|"A Y\nB X\nC Z"|]
+
+    let exampleResults2_1 = [|"15"|]
+
+    let examples2_2 = examples2_1
+
+    let exampleResults2_2 = [|"12"|]
