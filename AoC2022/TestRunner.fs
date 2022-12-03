@@ -74,3 +74,14 @@ module TestRunner =
     let examples2_2 = examples2_1
 
     let exampleResults2_2 = [|"12"|]
+
+    // Day3
+    let input3 = getInput 3
+
+    let examples3_1 = [|"vJrwpWtwJgWrhcsFMMfFFhFp\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\nPmmdzqPrVvPwwTWBwg\nwMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\nttgJtRGJQctTZtZT\nCrZsJsPPZsGzwwsLwLmpwMDw"|]
+
+    let exampleResults3_1 = [|"157"|]
+
+    let examples3_2 = examples3_1
+
+    let exampleResults3_2 = [|"70"|]
