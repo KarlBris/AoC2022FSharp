@@ -56,32 +56,46 @@ module TestRunner =
     // Day1
     let input1 = getInput 1
 
-    let examples1_1 = [|"1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000"|]
+    let examples1_1 =
+        [| "1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000" |]
 
-    let exampleResults1_1 = [|"24000"|]
+    let exampleResults1_1 = [| "24000" |]
 
-    let examples1_2 = [|"1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000"|]
+    let examples1_2 =
+        [| "1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000" |]
 
-    let exampleResults1_2 = [|"45000"|]
+    let exampleResults1_2 = [| "45000" |]
 
     // Day2
     let input2 = getInput 2
 
-    let examples2_1 = [|"A Y\nB X\nC Z"|]
+    let examples2_1 = [| "A Y\nB X\nC Z" |]
 
-    let exampleResults2_1 = [|"15"|]
+    let exampleResults2_1 = [| "15" |]
 
     let examples2_2 = examples2_1
 
-    let exampleResults2_2 = [|"12"|]
+    let exampleResults2_2 = [| "12" |]
 
     // Day3
     let input3 = getInput 3
 
-    let examples3_1 = [|"vJrwpWtwJgWrhcsFMMfFFhFp\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\nPmmdzqPrVvPwwTWBwg\nwMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\nttgJtRGJQctTZtZT\nCrZsJsPPZsGzwwsLwLmpwMDw"|]
+    let examples3_1 =
+        [| "vJrwpWtwJgWrhcsFMMfFFhFp\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\nPmmdzqPrVvPwwTWBwg\nwMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\nttgJtRGJQctTZtZT\nCrZsJsPPZsGzwwsLwLmpwMDw" |]
 
-    let exampleResults3_1 = [|"157"|]
+    let exampleResults3_1 = [| "157" |]
 
     let examples3_2 = examples3_1
 
-    let exampleResults3_2 = [|"70"|]
+    let exampleResults3_2 = [| "70" |]
+
+    // Day4
+    let input4 = getInput 4
+
+    let examples4_1 = [| "2-4,6-8\n2-3,4-5\n5-7,7-9\n2-8,3-7\n6-6,4-6\n2-6,4-8" |]
+
+    let exampleResults4_1 = [| "2" |]
+
+    let examples4_2 = examples4_1
+
+    let exampleResults4_2 = [| "4" |]

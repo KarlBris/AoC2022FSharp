@@ -19,6 +19,9 @@ module Utils =
     let commas (input: string) : string [] =
         input.Split([| ", "; "," |], StringSplitOptions.RemoveEmptyEntries)
 
+    let hyphens (input: string) : string [] =
+        input.Split([| "- "; "-" |], StringSplitOptions.RemoveEmptyEntries)
+
     let isAllUppercase (input: string) : bool =
         input |> Seq.forall (fun c -> Char.IsUpper c)
 
@@ -32,9 +35,14 @@ module Utils =
     let eMod64 (a: int64) (b: int64) : int64 = ((a % b) + b) % b
 
     // From http://www.fssnip.net/4u/title/Very-Fast-Permutations
-    let rec permutations = function
-    | []      -> seq [List.empty]
-    | x :: xs -> Seq.collect (insertions x) (permutations xs)
-    and insertions x = function
-        | []             -> [[x]]
-        | (y :: ys) as xs -> (x::xs)::(List.map (fun x -> y::x) (insertions x ys))
+    let rec permutations =
+        function
+        | [] -> seq [ List.empty ]
+        | x :: xs -> Seq.collect (insertions x) (permutations xs)
+
+    and insertions x =
+        function
+        | [] -> [ [ x ] ]
+        | (y :: ys) as xs ->
+            (x :: xs)
+            :: (List.map (fun x -> y :: x) (insertions x ys))
