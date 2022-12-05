@@ -99,3 +99,14 @@ module TestRunner =
     let examples4_2 = examples4_1
 
     let exampleResults4_2 = [| "4" |]
+
+    // Day5
+    let input5 = getInput 5
+
+    let examples5_1 = [|"    [D]    \n[N] [C]    \n[Z] [M] [P]\n 1   2   3 \n\nmove 1 from 2 to 1\nmove 3 from 1 to 3\nmove 2 from 2 to 1\nmove 1 from 1 to 2"|]
+
+    let exampleResults5_1 = [|"CMZ"|]
+
+    let examples5_2 = examples5_1
+
+    let exampleResults5_2 = [|"MCD"|]

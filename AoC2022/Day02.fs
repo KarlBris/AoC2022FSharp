@@ -12,7 +12,7 @@ module Day02 =
     let draw = 3
     let lose = 0
 
-    let calculateScore ((l, r): string * string) : int = 
+    let calculateScore ((l, r): string * string) : int =
         match r with
         | "X" ->
             rock
@@ -40,26 +40,26 @@ module Day02 =
         |> Array.sum
         |> string
 
-    let calculateNeededScore ((l, r): string * string) : int =        
+    let calculateNeededScore ((l, r): string * string) : int =
         match r with
         | "X" ->
-            lose + 
-            match l with
-            | "A" -> scissors
-            | "B" -> rock
-            | "C" -> paper
+            lose
+            + match l with
+              | "A" -> scissors
+              | "B" -> rock
+              | "C" -> paper
         | "Y" ->
-            draw +
-            match l with
-            | "A" -> rock
-            | "B" -> paper
-            | "C" -> scissors
+            draw
+            + match l with
+              | "A" -> rock
+              | "B" -> paper
+              | "C" -> scissors
         | "Z" ->
-            win +
-            match l with
-            | "A" -> paper
-            | "B" -> scissors
-            | "C" -> rock
+            win
+            + match l with
+              | "A" -> paper
+              | "B" -> scissors
+              | "C" -> rock
 
     let part2 (input: string) : string =
         input
