@@ -13,26 +13,21 @@ module Day05 =
         | [] -> stacks
         | (num, fromIndex, toIndex) :: restOfInstructions ->
 
-            let subNum = if multipleStacksAtOnce then num else 1
-
             let (newFromStack, endOfToStack) =
-                List.splitAt
-                    ((Seq.length (stacks.Item(fromIndex - 1))) - subNum)
-                    (Seq.toList (stacks.Item(fromIndex - 1)))
+                List.splitAt ((Seq.length (stacks.Item(fromIndex - 1))) - num) (Seq.toList (stacks.Item(fromIndex - 1)))
+
+            let endOfStack' =
+                if multipleStacksAtOnce then
+                    endOfToStack
+                else
+                    List.rev endOfToStack
 
             let stacks' =
                 stacks
                 |> Map.change (fromIndex - 1) (fun _ -> Some newFromStack)
-                |> Map.change (toIndex - 1) (fun s -> Some((Option.get s) @ endOfToStack))
+                |> Map.change (toIndex - 1) (fun s -> Some((Option.get s) @ endOfStack'))
 
-            if num - 1 = 0 || multipleStacksAtOnce then
-                runInstructions multipleStacksAtOnce stacks' restOfInstructions
-            else
-                runInstructions
-                    multipleStacksAtOnce
-                    stacks'
-                    ((num - 1, fromIndex, toIndex)
-                     :: restOfInstructions)
+            runInstructions multipleStacksAtOnce stacks' restOfInstructions
 
     let makeStacks stacks =
         stacks
