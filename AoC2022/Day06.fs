@@ -18,7 +18,7 @@ module Day06 =
         |> Seq.windowed windowSize
         |> Seq.toList
         |> isAllDifferent windowSize 0
-        |> (fun a -> a + windowSize)
+        |> (+) windowSize
         |> string
 
     let part1 (input: string) : string = runner 4 input
