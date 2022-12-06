@@ -110,3 +110,14 @@ module TestRunner =
     let examples5_2 = examples5_1
 
     let exampleResults5_2 = [|"MCD"|]
+
+    // Day6
+    let input6 = getInput 6
+
+    let examples6_1 = [|"mjqjpqmgbljsphdztnvjfqwrcgsmlb"; "bvwbjplbgvbhsrlpgdmjqwftvncz"; "nppdvjthqldpwncqszvftbrmjlhg"; "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"; "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"|]
+
+    let exampleResults6_1 = [|"7"; "5"; "6"; "10"; "11"|]
+
+    let examples6_2 = [|"mjqjpqmgbljsphdztnvjfqwrcgsmlb"; "bvwbjplbgvbhsrlpgdmjqwftvncz"; "nppdvjthqldpwncqszvftbrmjlhg"; "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"; "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"|]
+
+    let exampleResults6_2 = [|"19"; "23"; "23"; "29"; "26"|]
