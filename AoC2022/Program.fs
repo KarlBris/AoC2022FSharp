@@ -19,7 +19,7 @@ module Program =
         //run TestRunner.examples6_1 TestRunner.exampleResults6_1 TestRunner.input6 Day06.part1 "Day 6 part 1"
         //run TestRunner.examples6_2 TestRunner.exampleResults6_2 TestRunner.input6 Day06.part2 "Day 6 part 2"
         run TestRunner.examples7_1 TestRunner.exampleResults7_1 TestRunner.input7 Day07.part1 "Day 7 part 1"
-        //run TestRunner.examples7_2 TestRunner.exampleResults7_2 TestRunner.input7 Day07.part2 "Day 7 part 2"
+        run TestRunner.examples7_2 TestRunner.exampleResults7_2 TestRunner.input7 Day07.part2 "Day 7 part 2"
         //run TestRunner.examples8_1 TestRunner.exampleResults8_1 TestRunner.input8 Day08.part1 "Day 8 part 1"
         //run TestRunner.examples8_2 TestRunner.exampleResults8_2 TestRunner.input8 Day08.part2 "Day 8 part 2"
         //run TestRunner.examples9_1 TestRunner.exampleResults9_1 TestRunner.input9 Day09.part1 "Day 9 part 1"

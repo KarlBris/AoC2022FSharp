@@ -22,6 +22,9 @@ module Utils =
     let hyphens (input: string) : string [] =
         input.Split([| "- "; "-" |], StringSplitOptions.RemoveEmptyEntries)
 
+    let slashes (input: string) : string [] =
+        input.Split([| "/ "; "/" |], StringSplitOptions.RemoveEmptyEntries)
+
     let isAllUppercase (input: string) : bool =
         input |> Seq.forall (fun c -> Char.IsUpper c)
 

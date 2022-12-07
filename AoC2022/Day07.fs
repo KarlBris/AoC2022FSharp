@@ -8,38 +8,62 @@ module Day07 =
         | Directory of (string * DirTree list * int option)
         | File of (string * int)
 
-    let rec getDirectoryTree (directory: string) (tree: DirTree) : DirTree option =
-        match tree with
-        | File _ -> None
-        | Directory (name, subDirs, _) as tree ->
-            if name = directory then
-                Some tree
-            else
-                subDirs
-                |> List.map ((getDirectoryTree directory) >> Option.toList)
-                |> List.concat
-                |> List.tryHead
+    let makePathList (path: string) : string list =
+        let a = slashes path |> Array.toList
+        a
 
-    let rec setDirectoryTree (directory: string) (newSubTree: DirTree) (tree: DirTree) : DirTree =
-        match tree with
-        | File _ -> tree
-        | Directory (name, subs, size) ->
-            if name = directory then
-                newSubTree
-            else
-                Directory(
-                    name,
-                    (subs
-                     |> List.map (setDirectoryTree directory newSubTree)),
-                    size
-                )
+    let rec getDirectoryTree (path: string list) (tree: DirTree) : DirTree option =
+        match path with
+        | [] -> Some tree
+        | p::ps -> 
+            match tree with
+            | File _ -> None
+            | Directory (name, subDirs, _) ->
+                let subTreeOption = subDirs |> List.filter (fun d ->
+                                                        match d with
+                                                        | File _ -> false
+                                                        | Directory (name,_,_) -> name = p)
+                                      |> List.tryHead
 
-    let addToCurrentDirectory (currentDirectory: string) (tree: DirTree) (toAdd: DirTree) : DirTree =
-        match getDirectoryTree currentDirectory tree with
+                match subTreeOption with
+                | Some subTree -> getDirectoryTree ps subTree
+                | None -> None
+                
+    let replaceSubTree (newSubTree: DirTree) (subTreeList: DirTree list) : (DirTree list) =
+        let newSubTreeName = match newSubTree with
+                             | File (name, _) -> name
+                             | Directory (name, _, _) -> name
+        List.map (fun stree -> match stree with
+                               | Directory (name,_,_) as dir -> if name = newSubTreeName then newSubTree else dir
+                               | file -> file) subTreeList
+
+    let rec setDirectoryTree (path: string list) (newSubTree: DirTree) (tree: DirTree) : DirTree =
+        match path with
+        | [] -> match tree with
+                | File _ -> tree
+                | Directory (name, subs, size) ->
+                        newSubTree
+        | p::ps -> 
+            match tree with
+                | File _ -> failwith "fail"
+                | Directory (name, subs, size) as dir ->
+                    let subTreeOption = subs |> List.filter (fun d ->
+                                                    match d with
+                                                    | File _ -> false
+                                                    | Directory (name,_,_) -> name = p)
+                                             |> List.tryHead
+                    match subTreeOption with
+                    | Some subTree -> 
+                        let newSubTrees = replaceSubTree (setDirectoryTree ps newSubTree subTree) subs
+                        Directory (name, newSubTrees, size)
+                    | None -> dir
+
+    let addToCurrentDirectory (currentPath: string) (tree: DirTree) (toAdd: DirTree) : DirTree =
+        match getDirectoryTree (makePathList currentPath) tree with
         | None -> failwith "could not find current directory"
         | Some (File _) -> failwith "file got instead of directory"
         | Some (Directory (name, subs, size)) ->
-            setDirectoryTree currentDirectory (Directory(name, toAdd :: subs, size)) tree
+            setDirectoryTree (makePathList currentPath) (Directory(name, toAdd :: subs, size)) tree
 
     let getDirNamesFromSubTree (subDirs: DirTree list) : string list =
         subDirs
@@ -49,25 +73,17 @@ module Day07 =
             | Directory (name, _, _) -> [ name ])
         |> List.concat
 
-    let rec findDirOneStepUp (currentDirectory: string) (tree: DirTree) : string option =
-        // This sometimes goes straight to / for some reason
-        match tree with
-        | Directory (name, subDirs, size) ->
-            let subDirNames = getDirNamesFromSubTree subDirs
+    let oneStepUp (path: string) : string=
+        let a = path
+                |> slashes
+                |> Array.toList
+                |> List.rev
 
-            if List.isEmpty subDirNames then
-                None
-            else if List.contains currentDirectory subDirNames then
-                Some name
-            else
-                subDirs
-                |> List.map (findDirOneStepUp currentDirectory)
-                |> List.tryFind (fun v -> Option.isSome v)
-                |> Option.flatten
+        match a with
+        | [] -> "/"
+        | d::ds -> "/" + (String.concat "/" (List.rev ds))
 
-        | File (name, size) -> None
-
-    let rec parseTree (currentDirectory: string) (tree: DirTree) (lines: string list) : DirTree =
+    let rec parseTree (currentPath: string) (tree: DirTree) (lines: string list) : DirTree =
         match lines with
         | [] -> tree
         | line :: restOfLines ->
@@ -79,21 +95,19 @@ module Day07 =
                 | "cd" ->
                     match lineWords[2] with
                     | ".." ->
-                        match (findDirOneStepUp currentDirectory tree) with
-                        | Some dirName -> parseTree dirName tree restOfLines
-                        | None -> failwith "error"
-                    | dir -> parseTree dir tree restOfLines
-                | _ -> parseTree currentDirectory tree restOfLines // ls case
+                        parseTree (oneStepUp currentPath) tree restOfLines
+                    | dir -> parseTree (currentPath + "/" + dir) tree restOfLines
+                | _ -> parseTree currentPath tree restOfLines // ls case
             | "dir" ->
                 let directory = (lineWords[1], [], None)
 
                 parseTree
-                    currentDirectory
-                    (addToCurrentDirectory currentDirectory tree (Directory directory))
+                    currentPath
+                    (addToCurrentDirectory currentPath tree (Directory directory))
                     restOfLines
             | _other ->
                 let file = (lineWords[1], int lineWords[0])
-                parseTree currentDirectory (addToCurrentDirectory currentDirectory tree (File file)) restOfLines
+                parseTree currentPath (addToCurrentDirectory currentPath tree (File file)) restOfLines
 
     let rec getSize (tree: DirTree) : int =
         match tree with
@@ -136,14 +150,28 @@ module Day07 =
         let weightedTree = setWeights tree
         let dirList = getDirectoryList weightedTree
 
-        let b =
-            dirList
-            |> List.map (fun (Directory (_, _, size)) -> size)
-            |> List.filter (fun s -> Option.get s <= 100000)
-            |> List.map Option.get
-            |> List.sum
-            |> string
+        dirList
+        |> List.map (fun (Directory (_, _, size)) -> size)
+        |> List.filter (fun s -> Option.get s <= 100000)
+        |> List.map Option.get
+        |> List.sum
+        |> string
 
-        b
+    let part2 (input: string) : string = 
+        let tree =
+            input
+            |> lines
+            |> Array.toList
+            |> parseTree "/" (Directory("/", [], None))
 
-    let part2 (input: string) : string = input
+        let weightedTree = setWeights tree
+        let dirList = weightedTree |> getDirectoryList |> List.map (fun (Directory (_, _, size)) -> Option.get size)
+                        
+        let freeSpace = (70000000 - (List.max dirList))
+        let spaceNeeded = 30000000 - freeSpace
+
+        dirList
+        |> List.filter (fun s -> s >= spaceNeeded)
+        |> List.sort
+        |> List.head
+        |> string

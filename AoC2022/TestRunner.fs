@@ -129,6 +129,6 @@ module TestRunner =
 
     let exampleResults7_1 = [|"95437"|]
 
-    let examples7_2 = [||]
+    let examples7_2 = examples7_1
 
-    let exampleResults7_2 = [||]
+    let exampleResults7_2 = [|"24933642"|]
