@@ -121,3 +121,14 @@ module TestRunner =
     let examples6_2 = [|"mjqjpqmgbljsphdztnvjfqwrcgsmlb"; "bvwbjplbgvbhsrlpgdmjqwftvncz"; "nppdvjthqldpwncqszvftbrmjlhg"; "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"; "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"|]
 
     let exampleResults6_2 = [|"19"; "23"; "23"; "29"; "26"|]
+
+    // Day7
+    let input7 = getInput 7
+
+    let examples7_1 = [|"$ cd /\n$ ls\ndir a\n14848514 b.txt\n8504156 c.dat\ndir d\n$ cd a\n$ ls\ndir e\n29116 f\n2557 g\n62596 h.lst\n$ cd e\n$ ls\n584 i\n$ cd ..\n$ cd ..\n$ cd d\n$ ls\n4060174 j\n8033020 d.log\n5626152 d.ext\n7214296 k"|]
+
+    let exampleResults7_1 = [|"95437"|]
+
+    let examples7_2 = [||]
+
+    let exampleResults7_2 = [||]
