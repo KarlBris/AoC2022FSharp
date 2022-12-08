@@ -12,8 +12,8 @@ module Day08 =
         (coord: Coord)
         (nextCoordFunc: Coord -> Coord)
         (largestTree: int)
-        (treeSet: TreeSet)
         (trees: int array array)
+        (treeSet: TreeSet)
         : TreeSet =
         match largestTree with
         | 9 -> treeSet
@@ -29,23 +29,33 @@ module Day08 =
                 | None -> treeSet
                 | Some tree ->
                     if tree > largestTree then
-                        findTreesInALine (nextCoordFunc coord) nextCoordFunc tree (Set.add coord treeSet) trees
+                        findTreesInALine (nextCoordFunc coord) nextCoordFunc tree trees (Set.add coord treeSet)
                     else
-                        findTreesInALine (nextCoordFunc coord) nextCoordFunc largestTree treeSet trees
+                        findTreesInALine (nextCoordFunc coord) nextCoordFunc largestTree trees treeSet
 
     let findVisibleTrees (trees: int array array) : TreeSet =
         let mapSize = Array.length trees
-        let mutable treeSet = Set.empty
+        let treeSet = Set.empty
 
-        for x = 0 to (mapSize - 1) do
-            treeSet <- findTreesInALine (x, 0) (fun (a, b) -> (a, b + 1)) -1 treeSet trees
-            treeSet <- findTreesInALine (x, mapSize - 1) (fun (a, b) -> (a, b - 1)) -1 treeSet trees
+        let treeSet2 =
+            [ 0 .. (mapSize - 1) ]
+            |> List.fold
+                (fun foldTreeSet x ->
+                    foldTreeSet
+                    |> findTreesInALine (x, 0) (fun (a, b) -> (a, b + 1)) -1 trees
+                    |> findTreesInALine (x, mapSize - 1) (fun (a, b) -> (a, b - 1)) -1 trees)
+                treeSet
 
-        for y = 0 to (mapSize - 1) do
-            treeSet <- findTreesInALine (0, y) (fun (a, b) -> (a + 1, b)) -1 treeSet trees
-            treeSet <- findTreesInALine (mapSize - 1, y) (fun (a, b) -> (a - 1, b)) -1 treeSet trees
+        let treeSet3 =
+            [ 0 .. (mapSize - 1) ]
+            |> List.fold
+                (fun foldTreeSet y ->
+                    foldTreeSet
+                    |> findTreesInALine (0, y) (fun (a, b) -> (a + 1, b)) -1 trees
+                    |> findTreesInALine (mapSize - 1, y) (fun (a, b) -> (a - 1, b)) -1 trees)
+                treeSet2
 
-        treeSet
+        treeSet3
 
     let part1 (input: string) : string =
         let intArray =
