@@ -132,3 +132,14 @@ module TestRunner =
     let examples7_2 = examples7_1
 
     let exampleResults7_2 = [|"24933642"|]
+
+    // Day8
+    let input8 = getInput 8
+
+    let examples8_1 = [|"30373\n25512\n65332\n33549\n35390"|]
+
+    let exampleResults8_1 = [|"21"|]
+
+    let examples8_2 = examples8_1
+
+    let exampleResults8_2 = [|"8"|]

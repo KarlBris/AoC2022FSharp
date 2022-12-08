@@ -37,6 +37,8 @@ module Utils =
 
     let eMod64 (a: int64) (b: int64) : int64 = ((a % b) + b) % b
 
+    let charToInt (c: char) : int = int c - int '0'
+
     // From http://www.fssnip.net/4u/title/Very-Fast-Permutations
     let rec permutations =
         function
