@@ -187,3 +187,14 @@ module TestRunner =
     let examples12_2 = examples12_1
 
     let exampleResults12_2 = [|"29"|]
+    
+    // Day13
+    let input13 = getInput 13
+
+    let examples13_1 = [||]
+
+    let exampleResults13_1 = [||]
+
+    let examples13_2 = [||]
+
+    let exampleResults13_2 = [||]

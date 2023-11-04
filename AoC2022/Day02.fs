@@ -20,18 +20,22 @@ module Day02 =
               | "A" -> draw
               | "B" -> lose
               | "C" -> win
+              | _ -> failwith "this won't happen"
         | "Y" ->
             paper
             + match l with
               | "A" -> win
               | "B" -> draw
               | "C" -> lose
+              | _ -> failwith "this won't happen"
         | "Z" ->
             scissors
             + match l with
               | "A" -> lose
               | "B" -> win
               | "C" -> draw
+              | _ -> failwith "this won't happen"
+        | _ -> failwith "this won't happen"
 
     let part1 (input: string) : string =
         input
@@ -48,18 +52,22 @@ module Day02 =
               | "A" -> scissors
               | "B" -> rock
               | "C" -> paper
+              | _ -> failwith "this won't happen"
         | "Y" ->
             draw
             + match l with
               | "A" -> rock
               | "B" -> paper
               | "C" -> scissors
+              | _ -> failwith "this won't happen"
         | "Z" ->
             win
             + match l with
               | "A" -> paper
               | "B" -> scissors
               | "C" -> rock
+              | _ -> failwith "this won't happen"
+        | _ -> failwith "this won't happen"
 
     let part2 (input: string) : string =
         input
